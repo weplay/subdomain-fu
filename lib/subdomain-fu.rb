@@ -22,6 +22,9 @@ module SubdomainFu
 
   mattr_accessor :override_only_path
   @@override_only_path = false
+  
+  mattr_accessor :domains
+  @@domains = []
 
   # Returns the TLD Size of the current environment.
   def self.tld_size
@@ -36,6 +39,11 @@ module SubdomainFu
   # Is the current subdomain either nil or not a mirror?
   def self.has_subdomain?(subdomain)
     subdomain != false && !subdomain.blank? && !SubdomainFu.mirrors.include?(subdomain)
+  end
+  
+  # Is the current domain the preffered domain?
+  def self.has_custom_domain?(domain)
+    !SubdomainFu.domains.include?(domain)
   end
 
   def self.is_mirror?(subdomain)
